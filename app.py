@@ -1,11 +1,12 @@
-import cv2
-import numpy as np
 from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
-import io
 
 app = Flask(__name__)
-CORS(app) # Allows your HTML to talk to this Python file
+
+# This tells the server to allow requests from ANYWHERE
+CORS(app, resources={r"/*": {"origins": "*"}}) 
+
+# ... rest of your code ...
 
 def embed_deep_burn_dct(img_bytes, wm_bytes, strength=0.08):
     # 1. Decode the uploaded files into image matrices
