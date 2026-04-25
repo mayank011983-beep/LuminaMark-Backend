@@ -50,7 +50,11 @@ def embed_deep_burn_dct(img_bytes, wm_bytes, strength=0.08):
     # 7. Convert back to a file to send to the website
     _, buffer = cv2.imencode('.png', img)
     return io.BytesIO(buffer)
-
+@app.before_request
+def handle_preflight():
+    if request.method == "OPTIONS":
+        return "", 200
+        
 @app.route('/process', methods=['POST'])
 def process_image():
     if 'image' not in request.files or 'watermark' not in request.files:
